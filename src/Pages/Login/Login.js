@@ -3,7 +3,7 @@ import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-fireba
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -15,6 +15,10 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
+    let navigate = useNavigate();
+    let location = useLocation();
+    let from = location.state?.from?.pathname || "/";
+
     // true = this condition all time run or Active
     // if (true || loading || gLoading) {
 
@@ -23,7 +27,8 @@ const Login = () => {
     }
 
     if (user || gUser) {
-        console.log(user) || console.log(gUser)
+        // console.log(user) || console.log(gUser)
+        navigate(from, { replace: true });
     }
 
     let signInError;
