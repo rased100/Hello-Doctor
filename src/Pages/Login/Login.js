@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
@@ -19,6 +19,12 @@ const Login = () => {
     let location = useLocation();
     let from = location.state?.from?.pathname || "/";
 
+    useEffect(() => {
+        if (user || gUser) {
+            navigate(from, { replace: true });
+        }
+    }, [user, gUser, from, navigate])
+
     // true = this condition all time run or Active
     // if (true || loading || gLoading) {
 
@@ -26,10 +32,20 @@ const Login = () => {
         return <Loading></Loading>
     }
 
-    if (user || gUser) {
-        // console.log(user) || console.log(gUser)
-        navigate(from, { replace: true });
-    }
+
+    // error to console
+
+    // Warning: Cannot update a component (`BrowserRouter`) while rendering a different component (`Login`)
+
+    // if (user || gUser) {
+    //     // console.log(user) || console.log(gUser)
+    //     navigate(from, { replace: true });
+    // }
+
+    // solution
+    // useEffect
+
+
 
     let signInError;
 
@@ -38,7 +54,7 @@ const Login = () => {
     }
 
     const onSubmit = data => {
-        console.log(data);
+        // console.log(data);
         signInWithEmailAndPassword(data.email, data.password);
     };
 
