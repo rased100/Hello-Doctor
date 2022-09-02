@@ -4,6 +4,7 @@ import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -15,15 +16,24 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
+    const [token] = useToken(user || gUser);
+
     let navigate = useNavigate();
     let location = useLocation();
     let from = location.state?.from?.pathname || "/";
 
+    // useEffect(() => {
+    //     if (user || gUser) {
+    //         navigate(from, { replace: true });
+    //     }
+    // }, [user, gUser, from, navigate])
+    // **** Rplace user by token
+
     useEffect(() => {
-        if (user || gUser) {
+        if (token) {
             navigate(from, { replace: true });
         }
-    }, [user, gUser, from, navigate])
+    }, [token, from, navigate])
 
     // true = this condition all time run or Active
     // if (true || loading || gLoading) {
