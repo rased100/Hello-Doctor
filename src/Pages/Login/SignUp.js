@@ -4,6 +4,7 @@ import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
 import { Link, useNavigate } from 'react-router-dom';
+import useToken from '../../hooks/useToken';
 
 const SignUp = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -17,6 +18,8 @@ const SignUp = () => {
 
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
+    const [token] = useToken(user || gUser);
+
     const navigate = useNavigate();
 
     // true = this condition all time run or Active
@@ -26,8 +29,12 @@ const SignUp = () => {
         return <Loading></Loading>
     }
 
-    if (user || gUser) {
-        console.log(user) || console.log(gUser)
+    // if (user || gUser) {
+    //     console.log(user) || console.log(gUser)
+    // }
+
+    if (token) {
+        navigate('/appointment');
     }
 
     let signUpError;
@@ -41,7 +48,7 @@ const SignUp = () => {
         await createUserWithEmailAndPassword(data.email, data.password);
         await updateProfile({ displayName: data.name });
         console.log('update done');
-        navigate('/appointment');
+        // navigate('/appointment');
     };
     return (
         <div className='flex h-screen justify-center items-center'>
