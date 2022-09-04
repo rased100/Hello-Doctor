@@ -18,7 +18,7 @@ const Testimonials = () => {
             _id: 2,
             name: 'Winson Herry',
             review: '',
-            location: 'california',
+            location: 'Australia',
             img: people2
         },
         {
