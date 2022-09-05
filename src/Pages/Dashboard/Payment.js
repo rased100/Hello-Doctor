@@ -10,7 +10,7 @@ const stripePromise = loadStripe('pk_test_51LePZgLTa8SpQBCQkrIq30BTal5lsoWxgWGt7
 
 const Payment = () => {
     const { id } = useParams();
-    const url = `http://localhost:5000/booking/${id}`;
+    const url = `https://hello-doctor-heroku.herokuapp.com/booking/${id}`;
 
     // ['booking', id] . This is for different id
     const { data: appointment, isLoading } = useQuery(['booking', id], () => fetch(url, {

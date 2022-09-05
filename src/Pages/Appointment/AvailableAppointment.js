@@ -12,15 +12,15 @@ const AvailableAppointment = ({ date }) => {
     // const formattedDate = format(date, 'PP');
     // useEffect(() => {
     //     // fetch('services.json')
-    //     // fetch('http://localhost:5000/service')
-    //     fetch(`http://localhost:5000/available?date=${formattedDate}`)
+    //     // fetch('https://hello-doctor-heroku.herokuapp.com/service')
+    //     fetch(`https://hello-doctor-heroku.herokuapp.com/available?date=${formattedDate}`)
     //         .then(res => res.json())
     //         .then(data => setServices(data));
     // }, [formattedDate])
 
     // other way for update state of available appointment number
     const formattedDate = format(date, 'PP');
-    const { data: services, isLoading, refetch } = useQuery(['available', formattedDate], () => fetch(`http://localhost:5000/available?date=${formattedDate}`)
+    const { data: services, isLoading, refetch } = useQuery(['available', formattedDate], () => fetch(`https://hello-doctor-heroku.herokuapp.com/available?date=${formattedDate}`)
         .then(res => res.json()))
 
     if (isLoading) {

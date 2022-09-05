@@ -8,7 +8,7 @@ const AddDoctor = () => {
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
-    const { data: services, isLoading } = useQuery('services', () => fetch('http://localhost:5000/service').then(res => res.json()))
+    const { data: services, isLoading } = useQuery('services', () => fetch('https://hello-doctor-heroku.herokuapp.com/service').then(res => res.json()))
     // console.log('services', services)
 
 
@@ -34,7 +34,7 @@ const AddDoctor = () => {
                         img: img
                     }
                     // send to your database 
-                    fetch('http://localhost:5000/doctor', {
+                    fetch('https://hello-doctor-heroku.herokuapp.com/doctor', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
